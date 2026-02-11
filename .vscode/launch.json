@@ -9,6 +9,27 @@
             "name": "App",
             "request": "launch",
             "mainClass": "App",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "Calculator",
+            "request": "launch",
+            "mainClass": "Calculator",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "Calculator",
+            "request": "launch",
+            "mainClass": "Calculator",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "Calculator",
+            "request": "launch",
+            "mainClass": "Calculator",
             "projectName": "oop-project-i-jordannick20_e6856cec"
         },
         {
