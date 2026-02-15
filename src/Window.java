@@ -101,13 +101,13 @@ public class Window extends JFrame {
 
         btnSalesReport.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                txtOutput.setText(Report.buildSalesReport(seats, seatSize));
+                txtOutput.setText(Seat.buildSalesReport(seats, seatSize));
             }
         });
 
         btnTicketsReport.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                txtOutput.setText(Report.buildTicketsReport(seats, seatSize));
+                txtOutput.setText(Seat.buildTicketsReport(seats, seatSize));
             }
         });
 
