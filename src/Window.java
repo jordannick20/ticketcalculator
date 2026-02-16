@@ -7,9 +7,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 
-
-
-
 public class Window extends JFrame {
 
     private JTextField txtType;
@@ -30,8 +27,6 @@ public class Window extends JFrame {
     private int seatSize = 0; 
 
     public Window() {
-
-        
         setSize(510, 520);
         setLocation(200, 150);
         setTitle("Concert Ticket Calculator");
@@ -39,21 +34,21 @@ public class Window extends JFrame {
         setResizable(false);
 
         // setting up top panel
-        JPanel mainPanel = new JPanel(new MigLayout());
+        JPanel mainPanel = new JPanel(new MigLayout("", "", "[]10[grow]10[]"));
         setContentPane(mainPanel); 
 
         // top panel for seat data
-        JPanel panelInput = new JPanel(new MigLayout());
+        JPanel panelInput = new JPanel(new MigLayout("", "[]10[fill]10[fill]10[fill]", ""));
         panelInput.setBorder(new TitledBorder("Enter Seat Data"));
 
         // Row 1 headers
-        panelInput.add(new JLabel()); 
-        panelInput.add(new JLabel());
-        panelInput.add(new JLabel());
-        panelInput.add(new JLabel());
+        panelInput.add(new JLabel("")); 
+        panelInput.add(new JLabel("Type       "));
+        panelInput.add(new JLabel("Count      "));
+        panelInput.add(new JLabel("Price ($)  "), " wrap");
 
           // Row 2 inputs
-        panelInput.add(new JLabel("Enter for Seat:"));
+        panelInput.add(new JLabel("         Enter for Seat:  "));
         txtType = new JTextField();
         panelInput.add(txtType);
         txtCount = new JTextField();
@@ -64,12 +59,12 @@ public class Window extends JFrame {
         // Row 3 submit button aligned under fields
         btnSubmit = new JButton("Submit Data");
         panelInput.add(new JLabel(""));
-        panelInput.add(btnSubmit);
+        panelInput.add(btnSubmit, "span 3, align right");
 
-        mainPanel.add(panelInput);
+        mainPanel.add(panelInput, "grow, wrap");
 
         // Middle panel
-        JPanel pnlOutput = new JPanel(new MigLayout());
+        JPanel pnlOutput = new JPanel(new MigLayout("fill"));
         pnlOutput.setBorder(new TitledBorder("Seat Sales Report"));
 
         txtOutput = new JTextArea();
@@ -78,8 +73,8 @@ public class Window extends JFrame {
         // monospaced for JTextArea
         txtOutput.setFont(new Font(Font.MONOSPACED, Font.BOLD, 13));
         txtOutput.setPreferredSize(new Dimension(400, 300));
-        pnlOutput.add(txtOutput);
-        mainPanel.add(pnlOutput);
+        pnlOutput.add(txtOutput, "align center");
+        mainPanel.add(pnlOutput,"grow, wrap");
 
 
         JPanel panelButtons = new JPanel(new MigLayout("", "[]85[]", ""));
@@ -101,13 +96,13 @@ public class Window extends JFrame {
 
         btnSalesReport.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                txtOutput.setText(Seat.buildSalesReport(seats, seatSize));
+                txtOutput.setText(Report.buildSalesReport(seats, seatSize));
             }
         });
 
         btnTicketsReport.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                txtOutput.setText(Seat.buildTicketsReport(seats, seatSize));
+                txtOutput.setText(Report.buildTicketsReport(seats, seatSize));
             }
         });
 
@@ -124,6 +119,57 @@ public class Window extends JFrame {
                 }
             }
         });
+    }
+
+    // Adds one Seat entry to the array
+    private void onSubmit(ActionEvent e) {
+        if (seatSize > 4) {
+            disableInputs();
+            return;
+        }
+
+        String type = txtType.getText();
+        int count = Integer.parseInt(txtCount.getText());
+        double price = Double.parseDouble(txtPrice.getText());
+        
+        seats[seatSize] = new Seat(type, count, price);
+        seatSize++;
+
+        // clear fields for next entry
+        txtType.setText("");
+        txtCount.setText("");
+        txtPrice.setText("");
+
+        // if max reached disable it
+        if (seatSize > 4) {
+            disableInputs();
+        }
+    }
+
+    private void disableInputs() {
+        txtType.setEnabled(false);
+        txtCount.setEnabled(false);
+        txtPrice.setEnabled(false);
+        btnSubmit.setEnabled(false);
+    }
+
+    private void enableInputs() {
+        txtType.setEnabled(true);
+        txtCount.setEnabled(true);
+        txtPrice.setEnabled(true);
+        btnSubmit.setEnabled(true);
+    }
+
+    private void resetAll() {
+        // clear data
+        seats = new Seat[MAX_SEATS];
+        seatSize = 0;
+
+        txtType.setText("");
+        txtCount.setText("");
+        txtPrice.setText("");
+        txtOutput.setText("");
+        enableInputs();
     }
 
     public static void main(String[] args) throws Exception {
