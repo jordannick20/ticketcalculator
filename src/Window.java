@@ -20,7 +20,7 @@ public class Window extends JFrame {
     private JButton btnTicketsReport;
     private JButton btnReset;
 
-    // Data storage with array arrays only
+    // Data storage with array arrays onlyfff
     private static final int MAX_SEATS = 5;
     private Seat[] seats = new Seat[MAX_SEATS];
     // how many seats stored
