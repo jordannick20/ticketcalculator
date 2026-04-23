@@ -72,7 +72,7 @@ public class Window extends JFrame {
 
         // monospaced for JTextArea
         txtOutput.setFont(new Font(Font.MONOSPACED, Font.BOLD, 13));
-        txtOutput.setPreferredSize(new Dimension(400, 300));
+        txtOutput.setPreferredSize(new Dimension(400, 400));
         pnlOutput.add(txtOutput, "align center");
         mainPanel.add(pnlOutput,"grow, wrap");
 
